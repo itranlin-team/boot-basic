@@ -1,0 +1,48 @@
+package com.itranlin.basic.common.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.RequestParameter;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author itranlin
+ */
+@Configuration
+@EnableSwagger2
+public class Swagger2Config {
+    @Bean
+    public Docket createRestApi() {
+        List<RequestParameter> pars = new ArrayList<>();
+        RequestParameterBuilder authorization = new RequestParameterBuilder();
+        authorization.name("Authorization").description("权限标识符")
+                .in("header")
+                .required(false)
+                .build();
+        pars.add(authorization.build());
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.itranlin.basic"))
+                .paths(PathSelectors.any())
+                .build()
+                .globalRequestParameters(pars);
+    }
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("无人车实验平台 API文档")
+                .description("无人车实验平台 API文档")
+                .version("latest")
+                .build();
+    }
+}
