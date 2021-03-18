@@ -46,11 +46,4 @@ public class SysUserController {
         return RequestResult.e(StatusEnum.OK);
     }
 
-    @PostMapping(value = "/pwd")
-    @ApiOperation(value = "修改密码")
-    public RequestResult<Void> pwd(@RequestBody @Validated PwdDTO pwdDTO) {
-        userService.pwd(pwdDTO);
-        return RequestResult.e(StatusEnum.OK);
-    }
-
 }

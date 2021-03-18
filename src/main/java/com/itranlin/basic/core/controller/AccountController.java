@@ -4,6 +4,7 @@ import com.itranlin.basic.common.util.RedisUtil;
 import com.itranlin.basic.common.handler.BaseContextHandler;
 import com.itranlin.basic.core.bean.RequestResult;
 import com.itranlin.basic.core.bean.StatusEnum;
+import com.itranlin.basic.core.dto.PwdDTO;
 import com.itranlin.basic.core.dto.SignDTO;
 import com.itranlin.basic.core.service.ISysUserService;
 import com.itranlin.basic.core.vo.SignInVO;
@@ -45,4 +46,11 @@ public class AccountController {
         return RequestResult.e(StatusEnum.OK,userService.refresh());
     }
 
+
+    @PostMapping(value = "/reset-pwd")
+    @ApiOperation(value = "修改密码")
+    public RequestResult<Void> pwd(@RequestBody @Validated PwdDTO pwdDTO) {
+        userService.pwd(pwdDTO);
+        return RequestResult.e(StatusEnum.OK);
+    }
 }

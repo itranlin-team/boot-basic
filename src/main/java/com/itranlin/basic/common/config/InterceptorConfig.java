@@ -3,6 +3,7 @@ package com.itranlin.basic.common.config;
 import com.itranlin.basic.common.interceptor.TokenInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
@@ -31,5 +32,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
             add("/client/account/sign-in");
         }};
         registry.addInterceptor(tokenInterceptor).excludePathPatterns(excludePath);
+    }
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("/");
     }
 }

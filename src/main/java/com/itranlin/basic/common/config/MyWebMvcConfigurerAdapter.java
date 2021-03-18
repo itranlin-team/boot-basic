@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author itranlin
  */
 @Configuration
-public class MyWebMvcConfigurerAdapter  implements WebMvcConfigurer {
+public class MyWebMvcConfigurerAdapter {
 
     @Bean
     public CorsFilter corsFilter(){
@@ -34,9 +34,4 @@ public class MyWebMvcConfigurerAdapter  implements WebMvcConfigurer {
         return new CorsFilter(source);
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //解决跨域问题
-        registry.addResourceHandler("/**").addResourceLocations("/");
-    }
 }
