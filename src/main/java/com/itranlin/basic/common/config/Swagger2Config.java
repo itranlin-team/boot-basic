@@ -40,9 +40,9 @@ public class Swagger2Config {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("无人车实验平台 API文档")
-                .description("无人车实验平台 API文档")
-                .version("latest")
+                .title("Basic API文档")
+                .description("Basic API文档")
+                .version("0.0.1")
                 .build();
     }
 }
