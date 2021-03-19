@@ -24,12 +24,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<String>(){{
             add("/api/account/sign-in");
-            add("/fm-operate-log/sign-in");
             add("/v2/**");
             add("/swagger-resources/**");
             add("/webjars/**");
-            add("/swagger-ui.html/**");
-            add("/client/account/sign-in");
         }};
         registry.addInterceptor(tokenInterceptor).excludePathPatterns(excludePath);
     }
