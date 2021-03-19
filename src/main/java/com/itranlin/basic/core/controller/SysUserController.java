@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2020-03-15
  */
 @RestController
-@RequestMapping("/api/sys-user")
+@RequestMapping("/api/user")
 @Api(tags = {"用户相关"})
 public class SysUserController {
     @Resource
