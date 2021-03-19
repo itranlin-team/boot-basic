@@ -1,4 +1,4 @@
-package com.itranlin.basic.core.vo;
+package com.itranlin.basic.core.vo.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

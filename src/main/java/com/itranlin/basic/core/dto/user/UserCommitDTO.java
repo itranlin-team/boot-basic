@@ -1,4 +1,4 @@
-package com.itranlin.basic.core.dto;
+package com.itranlin.basic.core.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

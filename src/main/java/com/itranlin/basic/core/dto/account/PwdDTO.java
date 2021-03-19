@@ -1,4 +1,4 @@
-package com.itranlin.basic.core.dto;
+package com.itranlin.basic.core.dto.account;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
