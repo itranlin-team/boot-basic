@@ -1,8 +1,10 @@
 package com.itranlin.basic.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
 import java.io.IOException;
 
@@ -14,11 +16,22 @@ import java.io.IOException;
  */
 public class JacksonUtil {
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
     public static <T> T fromString(String string, Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(string, clazz);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("The given string value: "
+                    + string + " cannot be transformed to Json object");
+        }
+    }
+
+    public static <T> T fromString(String string, TypeReference<T> type) {
+        try {
+            return OBJECT_MAPPER.readValue(string, type);
         } catch (IOException e) {
             throw new IllegalArgumentException("The given string value: "
                     + string + " cannot be transformed to Json object");
@@ -34,16 +47,7 @@ public class JacksonUtil {
         }
     }
 
-    public static JsonNode toJsonNode(String value) {
-        try {
-            return OBJECT_MAPPER.readTree(value);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T clone(T value) {
-        return fromString(toString(value), (Class<T>) value.getClass());
+    public static <T> T clone(T value, TypeReference<T> type) {
+        return fromString(toString(value), type);
     }
 }
