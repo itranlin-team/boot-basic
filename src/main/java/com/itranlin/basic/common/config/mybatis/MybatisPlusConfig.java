@@ -25,7 +25,7 @@ public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor paginationInterceptor() {
         MybatisPlusInterceptor page = new MybatisPlusInterceptor();
-        page.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        page.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return page;
     }
 }
