@@ -7,6 +7,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -26,7 +27,7 @@ public class Swagger2Config {
         List<RequestParameter> pars = new ArrayList<>();
         RequestParameterBuilder authorization = new RequestParameterBuilder();
         authorization.name("Authorization").description("权限标识符")
-                .in("header")
+                .in(ParameterType.HEADER)
                 .required(false)
                 .build();
         pars.add(authorization.build());

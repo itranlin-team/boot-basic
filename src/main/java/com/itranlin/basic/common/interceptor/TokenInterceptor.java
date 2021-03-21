@@ -44,10 +44,10 @@ public class TokenInterceptor implements AsyncHandlerInterceptor {
                 return true;
             }
         }
-        System.out.println("认证失败");
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().write(JacksonUtil.toString(RequestResult.builder()
                 .status(StatusEnum.NOT_SING_IN.code)
-                .msg("登陆失败")
+                .msg(StatusEnum.NOT_SING_IN.msg)
                 .build()));
         return false;
     }
