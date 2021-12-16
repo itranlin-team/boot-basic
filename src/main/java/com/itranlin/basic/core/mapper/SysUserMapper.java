@@ -1,7 +1,8 @@
 package com.itranlin.basic.core.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.itranlin.basic.core.entity.SysUser;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * @author CY

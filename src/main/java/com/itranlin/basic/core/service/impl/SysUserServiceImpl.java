@@ -1,10 +1,5 @@
 package com.itranlin.basic.core.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itranlin.basic.common.exception.RequestException;
 import com.itranlin.basic.common.handler.BaseContextHandler;
 import com.itranlin.basic.common.util.Encrypt;
@@ -19,6 +14,12 @@ import com.itranlin.basic.core.mapper.SysUserMapper;
 import com.itranlin.basic.core.service.ISysUserService;
 import com.itranlin.basic.core.vo.account.SignInVO;
 import com.itranlin.basic.core.vo.user.UserVO;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +96,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             if (null != userOld) {
                 throw new RequestException(StatusEnum.FAIL, "用户名已存在");
             }
-            user.setPassword(Encrypt.md5((null == commitDTO.getPassword() ? commitDTO.getUsername().substring(commitDTO.getUsername().length() - 6) : commitDTO.getPassword()) + user.getUsername()));
+            user.setPassword(Encrypt.md5((null == commitDTO.getPassword() ? commitDTO.getUsername().substring(
+                    commitDTO.getUsername().length() - 6) : commitDTO.getPassword()) + user.getUsername()));
         }
         this.saveOrUpdate(user);
     }

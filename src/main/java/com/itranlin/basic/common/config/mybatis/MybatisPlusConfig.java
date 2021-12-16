@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * mybatis-plus配置
+ *
  * @author itranlin
  */
 @Configuration

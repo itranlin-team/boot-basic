@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author itranlin
  */
 @Slf4j
@@ -37,7 +36,9 @@ public class BaseContextHandler {
         return returnObjectValue(value);
     }
 
-
+    public static void setUsername(String username) {
+        set("username", username);
+    }
 
     public static String getToken() {
         Object value = get("Authorization");
@@ -65,11 +66,6 @@ public class BaseContextHandler {
     public static void setRole(String role) {
         set("role", role);
     }
-
-    public static void setUsername(String username) {
-        set("username", username);
-    }
-
 
     private static String returnObjectValue(Object value) {
         return value == null ? null : value.toString();

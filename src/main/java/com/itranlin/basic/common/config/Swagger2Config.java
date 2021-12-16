@@ -39,6 +39,7 @@ public class Swagger2Config {
                 .build()
                 .globalRequestParameters(pars);
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Basic API文档")

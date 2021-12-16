@@ -2,6 +2,7 @@ package com.itranlin.basic.core.bean;
 
 /**
  * 创建时间: 2020/3/27 21:10
+ *
  * @author itranlin
  */
 public class Constants {

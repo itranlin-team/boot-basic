@@ -2,6 +2,7 @@ package com.itranlin.basic.common.exception;
 
 
 import com.itranlin.basic.core.bean.StatusEnum;
+
 import lombok.*;
 
 import java.io.Serializable;

@@ -1,6 +1,7 @@
 package com.itranlin.basic.common.config;
 
 import com.itranlin.basic.common.interceptor.TokenInterceptor;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,7 +23,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        List<String> excludePath = new ArrayList<String>(){{
+        List<String> excludePath = new ArrayList<String>() {{
             add("/api/account/sign-in");
             add("/v2/**");
             add("/swagger-resources/**");

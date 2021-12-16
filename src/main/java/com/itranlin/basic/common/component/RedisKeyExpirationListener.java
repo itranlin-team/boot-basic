@@ -39,6 +39,6 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
     public void onMessage(Message message, byte[] pattern) {
         // 用户做自己的业务处理即可,注意message.toString()可以获取失效的key
         String key = message.toString();
-        log.debug("redis失效----Key={}",key);
+        log.debug("redis失效----Key={}", key);
     }
 }

@@ -24,7 +24,9 @@ public class SplitPageDTO<T> {
 
     public void initOrderBy(QueryWrapper<T> wrapper) {
         if (null != this.orderBy) {
-            this.orderBy.forEach(o -> wrapper.orderBy(true, o.isAsc(), CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, o.getColumnsName())));
+            this.orderBy.forEach(o -> wrapper.orderBy(true, o.isAsc(),
+                                                      CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE,
+                                                                                o.getColumnsName())));
         } else {
             wrapper.orderBy(true, false, "id");
         }

@@ -3,6 +3,7 @@ package com.itranlin.basic.common.util;
 
 import com.itranlin.basic.common.exception.RequestException;
 import com.itranlin.basic.core.bean.StatusEnum;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 /**
  * HttpsUtils HTTPS连接工具类
+ *
  * @author itranlin
  * @date 2020-01-09
  */
@@ -48,7 +50,7 @@ public class HttpsUtils {
      * @param url 请求url
      * @return 接口返回JSON数据
      */
-    public static <T> T getHttpClient(String url,Class<T> clazz) {
+    public static <T> T getHttpClient(String url, Class<T> clazz) {
         URI uri = URI.create(url);
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet get = new HttpGet(uri);
@@ -56,7 +58,7 @@ public class HttpsUtils {
         try {
             response = client.execute(get);
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                return JacksonUtil.fromString(HttpsUtils.getRespData(response).trim(),clazz);
+                return JacksonUtil.fromString(HttpsUtils.getRespData(response).trim(), clazz);
             } else {
                 throw new RequestException(StatusEnum.FAIL, "请求失败");
             }
@@ -72,7 +74,7 @@ public class HttpsUtils {
      * @param url 请求url
      * @return 接口返回JSON数据
      */
-    public static  <T> T postHttpClient(String url, StringEntity stringEntity,Class<T> clazz) {
+    public static <T> T postHttpClient(String url, StringEntity stringEntity, Class<T> clazz) {
         URI uri = URI.create(url);
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost post = new HttpPost(uri);
@@ -81,7 +83,7 @@ public class HttpsUtils {
             post.setEntity(stringEntity);
             response = client.execute(post);
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                return JacksonUtil.fromString(HttpsUtils.getRespData(response).trim(),clazz);
+                return JacksonUtil.fromString(HttpsUtils.getRespData(response).trim(), clazz);
             } else {
                 throw new RequestException(StatusEnum.FAIL, "请求失败");
             }
@@ -94,7 +96,8 @@ public class HttpsUtils {
     private static String getRespData(HttpResponse response) {
         try {
             HttpEntity entity = response.getEntity();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for (String temp = reader.readLine(); temp != null; temp = reader.readLine()) {
                 sb.append(temp);

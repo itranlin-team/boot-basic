@@ -16,13 +16,10 @@ import java.io.Serializable;
 @Builder
 public class RequestResult<T> implements Serializable {
 
-    private String status;
-
-    private T data;
-
-    private String msg;
-
     private final long timestamps = System.currentTimeMillis();
+    private String status;
+    private T data;
+    private String msg;
 
     public synchronized static <T> RequestResult<T> e(StatusEnum statusEnum) {
         return RequestResult.<T>builder().status(statusEnum.code)
@@ -34,11 +31,12 @@ public class RequestResult<T> implements Serializable {
                 .msg(statusEnum.msg).data(data).build();
     }
 
-    public synchronized static <T> RequestResult<T> e(StatusEnum statusEnum, T data,String message) {
+    public synchronized static <T> RequestResult<T> e(StatusEnum statusEnum, T data, String message) {
         return RequestResult.<T>builder().status(statusEnum.code)
                 .msg(message).data(data).build();
     }
-    public synchronized static <T> RequestResult<T> e(String code, T data,String message) {
+
+    public synchronized static <T> RequestResult<T> e(String code, T data, String message) {
         return RequestResult.<T>builder().status(code)
                 .msg(message).data(data).build();
     }

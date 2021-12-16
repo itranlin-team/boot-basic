@@ -1,13 +1,14 @@
 package com.itranlin.basic.core.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.itranlin.basic.core.bean.RequestResult;
 import com.itranlin.basic.core.bean.StatusEnum;
 import com.itranlin.basic.core.dto.user.UserCommitDTO;
 import com.itranlin.basic.core.dto.user.UserDTO;
 import com.itranlin.basic.core.service.ISysUserService;
 import com.itranlin.basic.core.vo.user.UserVO;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +25,11 @@ import javax.annotation.Resource;
 public class SysUserController {
     @Resource
     private ISysUserService userService;
+
     @PostMapping(value = "/list")
     @ApiOperation(value = "用户列表")
     public RequestResult<IPage<UserVO>> list(@RequestBody UserDTO userDTO) {
-        return RequestResult.e(StatusEnum.OK,userService.userPage(userDTO));
+        return RequestResult.e(StatusEnum.OK, userService.userPage(userDTO));
     }
 
     @PostMapping(value = "/commit")

@@ -1,13 +1,14 @@
 package com.itranlin.basic.core.controller;
 
-import com.itranlin.basic.common.util.RedisUtil;
 import com.itranlin.basic.common.handler.BaseContextHandler;
+import com.itranlin.basic.common.util.RedisUtil;
 import com.itranlin.basic.core.bean.RequestResult;
 import com.itranlin.basic.core.bean.StatusEnum;
 import com.itranlin.basic.core.dto.account.PwdDTO;
 import com.itranlin.basic.core.dto.account.SignDTO;
 import com.itranlin.basic.core.service.ISysUserService;
 import com.itranlin.basic.core.vo.account.SignInVO;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,7 +30,8 @@ public class AccountController {
 
     @PostMapping(value = {"/sign-in"})
     @ApiOperation(value = "登录")
-    public RequestResult<SignInVO> signIn(@RequestBody @Validated @ApiParam(value = "登录数据", required = true) SignDTO signDTO) {
+    public RequestResult<SignInVO> signIn(
+            @RequestBody @Validated @ApiParam(value = "登录数据", required = true) SignDTO signDTO) {
         return RequestResult.e(StatusEnum.SIGN_IN_OK, userService.signIn(signDTO));
     }
 
@@ -43,7 +45,7 @@ public class AccountController {
     @GetMapping(value = "/refresh")
     @ApiOperation(value = "刷新token并获取最新用户信息")
     public RequestResult<SignInVO> refresh() {
-        return RequestResult.e(StatusEnum.OK,userService.refresh());
+        return RequestResult.e(StatusEnum.OK, userService.refresh());
     }
 
 

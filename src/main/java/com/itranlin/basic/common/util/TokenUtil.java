@@ -1,9 +1,10 @@
 package com.itranlin.basic.common.util;
 
+import com.itranlin.basic.core.entity.SysUser;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.itranlin.basic.core.entity.SysUser;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,11 +17,13 @@ public class TokenUtil {
 
     /**
      * 过期时间一周
-      */
-    private static final long EXPIRE_TIME = 7*12*3600*1000;
+     */
+    private static final long EXPIRE_TIME = 7 * 12 * 3600 * 1000;
     private static final String TOKEN_SECRET = "qcy999";
+
     /**
      * 生成签名，15分钟过期
+     *
      * @param user 用户信息
      * @return token
      */
@@ -41,7 +44,7 @@ public class TokenUtil {
                     .withClaim("role", user.getType())
                     .withExpiresAt(date)
                     .sign(algorithm);
-            RedisUtil.set(token,"Authorization",60*60*24);
+            RedisUtil.set(token, "Authorization", 60 * 60 * 24);
             return token;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,11 +54,12 @@ public class TokenUtil {
 
     /**
      * 检验token是否正确
+     *
      * @param token token串
      * @return token是否通过
      */
-    public static boolean verify(String token){
-        if(null == RedisUtil.get(token)){
+    public static boolean verify(String token) {
+        if (null == RedisUtil.get(token)) {
             return false;
         }
         try {
@@ -63,7 +67,7 @@ public class TokenUtil {
             JWTVerifier verifier = JWT.require(algorithm).build();
             verifier.verify(token);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
