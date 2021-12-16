@@ -8,11 +8,13 @@ import com.itranlin.basic.core.bean.StatusEnum;
 
 import com.auth0.jwt.JWT;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,7 +37,6 @@ public class TokenInterceptor implements AsyncHandlerInterceptor {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
         }
-        response.setCharacterEncoding("utf-8");
         String token = request.getHeader("Authorization");
         if (token != null) {
             boolean result = TokenUtil.verify(token);
@@ -47,7 +48,8 @@ public class TokenInterceptor implements AsyncHandlerInterceptor {
                 return true;
             }
         }
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setLocale(Locale.CHINA);
         response.getWriter().write(JacksonUtil.toString(
                 RequestResult.builder().status(StatusEnum.NOT_SING_IN.code).msg(StatusEnum.NOT_SING_IN.msg).build()));
         return false;
