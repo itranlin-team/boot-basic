@@ -1,18 +1,23 @@
 package com.itranlin.basic.common.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**
  * @author itranlin
  */
+@Slf4j
 public class Encrypt {
 
     /**
      * MD5加密-32位小写
      */
     public static String md5(String encryptStr) {
+        String result = "";
         MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
@@ -25,11 +30,11 @@ public class Encrypt {
                 }
                 hexValue.append(Integer.toHexString(val));
             }
-            encryptStr = hexValue.toString();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            result = hexValue.toString();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("md5 encrypt fail", e);
         }
-        return encryptStr;
+        return result;
     }
 
     /**
@@ -57,12 +62,9 @@ public class Encrypt {
         byte[] b;
         String result = null;
         if (s != null) {
-            try {
-                b = Base64.getDecoder().decode(s);
-                result = new String(b, StandardCharsets.UTF_8);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            b = Base64.getDecoder().decode(s);
+            result = new String(b, StandardCharsets.UTF_8);
+
         }
         return result;
     }

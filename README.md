@@ -1,2 +1,1 @@
-SpringBoot 后端基础项目
-数据库中admin账号密码为123456
+SpringBoot 后端基础项目 数据库中admin账号密码为123456

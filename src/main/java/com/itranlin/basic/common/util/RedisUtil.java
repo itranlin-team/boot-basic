@@ -1,5 +1,6 @@
 package com.itranlin.basic.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author itranlin
  */
+@Slf4j
 public class RedisUtil {
 
     private static final StringRedisTemplate STRING_REDIS_TEMPLATE = SpringUtils.getBean(StringRedisTemplate.class);
@@ -21,15 +23,10 @@ public class RedisUtil {
      * @return 设置是否成功
      */
     public static boolean expire(String key, long time) {
-        try {
-            if (time > 0) {
-                RedisUtil.expire(key, time, TimeUnit.SECONDS);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        if (time > 0) {
+            return RedisUtil.expire(key, time, TimeUnit.SECONDS);
         }
+        return false;
     }
 
     /**
@@ -40,15 +37,10 @@ public class RedisUtil {
      * @return 设置是否成功
      */
     public static boolean expire(String key, long time, TimeUnit unit) {
-        try {
-            if (time > 0) {
-                STRING_REDIS_TEMPLATE.expire(key, time, unit);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        if (time > 0) {
+            STRING_REDIS_TEMPLATE.expire(key, time, unit);
         }
+        return true;
     }
 
     /**
@@ -57,10 +49,11 @@ public class RedisUtil {
      * @param key 键 不能为null
      * @return 时间(秒) 返回0代表为永久有效
      */
+    @SuppressWarnings("AlibabaMethodReturnWrapperType")
     public static long getExpire(String key) {
         Long result = STRING_REDIS_TEMPLATE.getExpire(key, TimeUnit.SECONDS);
         if (result == null) {
-            result = 0L;
+            return 0L;
         }
         return result;
     }
@@ -71,6 +64,7 @@ public class RedisUtil {
      * @param key 键
      * @return true 存在 false不存在
      */
+    @SuppressWarnings("AlibabaMethodReturnWrapperType")
     public static boolean hasKey(String key) {
         Boolean result = STRING_REDIS_TEMPLATE.hasKey(key);
         if (result == null) {
@@ -119,17 +113,9 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @return true成功 false失败
      */
-    public static boolean set(String key, String value) {
-        try {
-            STRING_REDIS_TEMPLATE.opsForValue().set(key, value);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    public static void set(String key, String value) {
+        STRING_REDIS_TEMPLATE.opsForValue().set(key, value);
     }
 
     /**
@@ -138,19 +124,12 @@ public class RedisUtil {
      * @param key   键
      * @param value 值
      * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
-     * @return true成功 false 失败
      */
-    public static boolean set(String key, String value, long time) {
-        try {
-            if (time > 0) {
-                STRING_REDIS_TEMPLATE.opsForValue().set(key, value, time, TimeUnit.SECONDS);
-            } else {
-                set(key, value);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public static void set(String key, String value, long time) {
+        if (time > 0) {
+            STRING_REDIS_TEMPLATE.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+        } else {
+            set(key, value);
         }
     }
 }

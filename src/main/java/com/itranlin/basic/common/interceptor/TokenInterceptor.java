@@ -8,6 +8,7 @@ import com.itranlin.basic.core.bean.StatusEnum;
 
 import com.auth0.jwt.JWT;
 import org.springframework.http.HttpMethod;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
@@ -23,8 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements AsyncHandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(
+            @NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+            @NonNull Object handler) throws Exception {
         // 如果请求是资源则放行
         if (handler instanceof ResourceHttpRequestHandler) {
             return true;
@@ -46,16 +48,15 @@ public class TokenInterceptor implements AsyncHandlerInterceptor {
             }
         }
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(JacksonUtil.toString(RequestResult.builder()
-                                                                .status(StatusEnum.NOT_SING_IN.code)
-                                                                .msg(StatusEnum.NOT_SING_IN.msg)
-                                                                .build()));
+        response.getWriter().write(JacksonUtil.toString(
+                RequestResult.builder().status(StatusEnum.NOT_SING_IN.code).msg(StatusEnum.NOT_SING_IN.msg).build()));
         return false;
     }
 
     @Override
     public void afterCompletion(
-            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+            @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler,
+            Exception ex) {
         BaseContextHandler.remove();
     }
 }

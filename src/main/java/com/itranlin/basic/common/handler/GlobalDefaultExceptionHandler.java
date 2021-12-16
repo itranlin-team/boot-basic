@@ -28,7 +28,6 @@ public class GlobalDefaultExceptionHandler {
     public RequestResult<Void> requestExceptionHandler(RequestException e) {
         if (e.getE() != null) {
             log.error("系统已处理异常", e);
-            e.printStackTrace();
         }
         return RequestResult.e(e.getStatus(), null, e.getMsg());
     }
@@ -38,7 +37,6 @@ public class GlobalDefaultExceptionHandler {
     @ResponseBody
     public RequestResult<Void> requestExceptionHandler(DataIntegrityViolationException e) {
         log.error("数据操作格式异常", e);
-        e.printStackTrace();
         return RequestResult.e(StatusEnum.FAIL, null, "数据操作格式异常");
     }
 
@@ -62,7 +60,6 @@ public class GlobalDefaultExceptionHandler {
     @ResponseBody
     public RequestResult<Void> requestExceptionHandler(Exception e) {
         log.error("服务器飘了～～管理员拿刀去修了 (ノへ￣、)", e);
-        e.printStackTrace();
         return RequestResult.e(StatusEnum.FAIL, null, "系统发生错误");
     }
 

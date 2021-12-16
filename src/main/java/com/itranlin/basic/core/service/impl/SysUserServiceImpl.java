@@ -69,22 +69,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public IPage<UserVO> userPage(UserDTO userDTO) {
-        IPage<UserVO> userVOPage = new Page<>();
+        IPage<UserVO> resultPage = new Page<>();
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         wrapper.like(null != userDTO.getName(), "real_name", userDTO.getName());
-        IPage<SysUser> userIPage = this.page(new Page<>(userDTO.getPage(), userDTO.getPageSize()), wrapper);
-        BeanUtils.copyProperties(userIPage, userVOPage);
-        if (null == userIPage.getRecords() || userIPage.getRecords().size() == 0) {
-            return userVOPage;
+        IPage<SysUser> userPage = this.page(new Page<>(userDTO.getPage(), userDTO.getPageSize()), wrapper);
+        BeanUtils.copyProperties(userPage, resultPage);
+        if (null == userPage.getRecords() || userPage.getRecords().size() == 0) {
+            return resultPage;
         }
-        List<UserVO> userVOS = new ArrayList<>();
-        userIPage.getRecords().forEach(e -> {
+        List<UserVO> userVos = new ArrayList<>();
+        userPage.getRecords().forEach(e -> {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(e, userVO);
-            userVOS.add(userVO);
+            userVos.add(userVO);
         });
-        userVOPage.setRecords(userVOS);
-        return userVOPage;
+        resultPage.setRecords(userVos);
+        return resultPage;
     }
 
     @Override
